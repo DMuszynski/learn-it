@@ -1,35 +1,72 @@
-package pl.dmuszynski.accountservice.domain;
+package pl.dmuszynski.account.domain;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.*;
 
 @Getter
 @ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public final class User extends AbstractEntity implements UserDetails {
-    private String username;
-    private String password;
+    @Column(nullable = false, unique = true, length = 45)
     private String email;
+
+    @Column(nullable = false, unique = true, length = 30)
+    private String username;
+
+    @Column(nullable = false, length = 50)
+    private String password;
+
+    @Column(nullable = false)
+    private boolean isLocked;
+
+    @Column(nullable = false)
+    private boolean isEnabled;
+
+    @ManyToMany
+    @JoinTable(name = "USER_AUTHORITY",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    private Set<Authority> authorities;
 
     public static class Builder extends AbstractEntity.Builder {
         private final String username;
         private final String password;
         private final String email;
 
+        private boolean isLocked = true;
+        private boolean isEnabled = false;
+        private Set<Authority> authorities = new HashSet<>();
+
         public Builder(long id, String username, String password, String email) {
             super(id);
             this.username = username;
             this.password = password;
             this.email = email;
+        }
+
+        public Builder addAuthority(Authority authority) {
+            this.authorities.add(Objects.requireNonNull(authority));
+            return this;
+        }
+
+        public Builder isLocked(boolean isLocked) {
+            this.isLocked = isLocked;
+            return this;
+        }
+
+        public Builder isEnabled(boolean isEnabled) {
+            this.isEnabled = isEnabled;
+            return this;
         }
 
         @Override public User build() {
@@ -42,16 +79,19 @@ public final class User extends AbstractEntity implements UserDetails {
 
             final User user = new User();
             user.id = id;
+            user.email = email;
             user.username = username;
             user.password = password;
-            user.email = email;
+            user.authorities = Set.copyOf(authorities);
+            user.isEnabled = isEnabled;
+            user.isLocked = isLocked;
 
             return user;
         }
     }
 
     @Override public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override public boolean isAccountNonExpired() {
@@ -59,14 +99,10 @@ public final class User extends AbstractEntity implements UserDetails {
     }
 
     @Override public boolean isAccountNonLocked() {
-        return false;
+        return !isLocked;
     }
 
     @Override public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override public boolean isEnabled() {
         return false;
     }
 }

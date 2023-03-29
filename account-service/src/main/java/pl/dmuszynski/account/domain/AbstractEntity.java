@@ -1,5 +1,6 @@
-package pl.dmuszynski.accountservice.domain;
+package pl.dmuszynski.account.domain;
 
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.MappedSuperclass;
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
     protected abstract static class Builder {
