@@ -1,4 +1,4 @@
-package pl.dmuszynski.identity;
+package pl.dmuszynski.learnit.services.identity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

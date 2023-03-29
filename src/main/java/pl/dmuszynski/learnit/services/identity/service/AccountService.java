@@ -1,9 +1,9 @@
-package pl.dmuszynski.identity.service;
+package pl.dmuszynski.learnit.services.identity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.dmuszynski.identity.domain.User;
-import pl.dmuszynski.identity.domain.UserRepository;
+import pl.dmuszynski.learnit.services.identity.domain.User;
+import pl.dmuszynski.learnit.services.identity.domain.UserRepository;
 
 @Service
 public class AccountService {

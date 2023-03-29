@@ -1,9 +1,9 @@
-package pl.dmuszynski.identity.service;
+package pl.dmuszynski.learnit.services.identity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.dmuszynski.identity.domain.Authority;
-import pl.dmuszynski.identity.domain.AuthorityRepository;
+import pl.dmuszynski.learnit.services.identity.domain.Authority;
+import pl.dmuszynski.learnit.services.identity.domain.AuthorityRepository;
 
 @Service
 public class AuthorityService {

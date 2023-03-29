@@ -1,4 +1,4 @@
-package pl.dmuszynski.identity.domain;
+package pl.dmuszynski.learnit.services.identity.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
