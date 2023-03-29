@@ -1,4 +1,4 @@
-package pl.dmuszynski.account.domain;
+package pl.dmuszynski.identity.domain;
 
 import jakarta.persistence.*;
 

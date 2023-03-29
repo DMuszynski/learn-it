@@ -1,14 +1,14 @@
-package pl.dmuszynski.account;
+package pl.dmuszynski.identity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
-import pl.dmuszynski.account.domain.Authority;
-import pl.dmuszynski.account.domain.AuthorityRepository;
-import pl.dmuszynski.account.domain.User;
-import pl.dmuszynski.account.domain.UserRepository;
+import pl.dmuszynski.identity.domain.Authority;
+import pl.dmuszynski.identity.domain.User;
+import pl.dmuszynski.identity.domain.UserRepository;
+import pl.dmuszynski.identity.service.AuthorityService;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -16,16 +16,14 @@ import pl.dmuszynski.account.domain.UserRepository;
 public class AccountServiceApplicationTest
 {
     @Autowired
-    private AuthorityRepository authorityRepository;
+    private AuthorityService authorityService;
     @Autowired
     private UserRepository userRepository;
 
     @Test
     public void UserTest() {
         final User user = new User.Builder(1, "dasd", "eqweq", "dasda")
-                .addAuthority(authorityRepository
-                    .findByAuthorityType(Authority.AuthorityType.USER)
-                        .orElse(authorityRepository.save(new Authority())))
+                .addAuthority(authorityService.findByAuthorityType(Authority.AuthorityType.USER))
                 .build();
 
         userRepository.save(user);

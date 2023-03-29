@@ -1,4 +1,4 @@
-package pl.dmuszynski.account.domain;
+package pl.dmuszynski.identity.domain;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
