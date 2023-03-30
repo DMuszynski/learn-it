@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import pl.dmuszynski.learnit.services.identity.domain.Authority;
 import pl.dmuszynski.learnit.services.identity.domain.User;
-import pl.dmuszynski.learnit.services.identity.domain.UserRepository;
+import pl.dmuszynski.learnit.services.identity.repository.UserRepository;
 import pl.dmuszynski.learnit.services.identity.service.AuthorityService;
 
 @DataJpaTest

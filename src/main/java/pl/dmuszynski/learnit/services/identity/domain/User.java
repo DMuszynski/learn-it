@@ -1,20 +1,29 @@
 package pl.dmuszynski.learnit.services.identity.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 public final class User extends AbstractEntity implements UserDetails {
     @Column(nullable = false, unique = true, length = 45)
@@ -45,7 +54,7 @@ public final class User extends AbstractEntity implements UserDetails {
 
         private boolean isLocked = true;
         private boolean isEnabled = false;
-        private Set<Authority> authorities = new HashSet<>();
+        private final Set<Authority> authorities = new HashSet<>();
 
         public Builder(long id, String username, String password, String email) {
             super(id);

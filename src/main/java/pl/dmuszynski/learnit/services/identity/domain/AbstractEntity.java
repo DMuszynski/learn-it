@@ -5,15 +5,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.MappedSuperclass;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.AccessLevel;
 
 import java.io.Serializable;
 
 @Getter
 @ToString
+@EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
